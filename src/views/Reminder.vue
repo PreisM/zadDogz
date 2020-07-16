@@ -20,6 +20,8 @@ export default {
   name: "Reminder",
   data() {
     return {
+      phoneNumber: "",
+      email: "",
       step: 0,
     };
   },
