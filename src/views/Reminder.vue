@@ -42,16 +42,13 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
-
 #reminder {
   margin-bottom: 1em;
 }
-
 .k-button {
   text-transform: none;
   margin: 1em 0.5em;
 }
-
 a {
   text-decoration: none;
   color: rgba(0, 0, 0, 0.87);
