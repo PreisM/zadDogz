@@ -2,7 +2,7 @@
   <div class="responseWrapper">
     <div class="bad">
       <p>
-        Login or password incorrect
+        Login or password is incorrect
       </p>
       <router-link to="/reminder">Remind password</router-link>
     </div>
