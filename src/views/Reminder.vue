@@ -7,9 +7,9 @@
       </p>
       <k-input :label="'E-mail adress'" type="email" id="email" />
     </div>
-    <k-button @click="thx">Send</k-button>
+    <k-button @click="thanks">Send</k-button>
     <k-button><router-link to="/">Return</router-link></k-button>
-    <div id="thx" v-if="step === 1">
+    <div id="thx" v-if="thx == true">
       Thank you. Check your e-mail account and click "return"
     </div>
   </div>
@@ -20,14 +20,12 @@ export default {
   name: "Reminder",
   data() {
     return {
-      phoneNumber: "",
-      email: "",
-      step: 0,
+      thx: false,
     };
   },
   methods: {
-    thx() {
-      this.step = 1;
+    thanks() {
+      this.thx = true;
     },
   },
 };

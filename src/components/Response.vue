@@ -1,10 +1,8 @@
 <template>
   <div class="responseWrapper">
     <div :class="[error ? 'bad' : 'good']">
-      <div id="badAnswer">
         <p>{{ paragraph() }}</p>
         <router-link v-if="error" to="/reminder">Remind password</router-link>
-      </div>
     </div>
   </div>
 </template>
