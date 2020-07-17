@@ -7,6 +7,8 @@ import { Input } from "@progress/kendo-vue-inputs";
 import { Button, ButtonsInstaller} from "@progress/kendo-buttons-vue-wrapper";
 import App from "./App.vue";
 
+window.axios = require('axios');
+
 Vue.use(ButtonsInstaller);
 Vue.component("k-input", Input);
 Vue.component("k-button", Button);

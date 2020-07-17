@@ -10,55 +10,61 @@
       <k-button v-model="send" @click="sendData">Submit</k-button>
       <k-button @click="clean" icon="refresh" type="reset"></k-button>
     </div>
-    <ResponseGood v-if="step === 1" />
-    <ResponseBad v-if="step === 2" />
+    <Response v-if="showMsg" :error="error" />
   </div>
 </template>
 
 <script>
-import axios from "axios";
-import ResponseGood from "@/components/ResponseGood.vue";
-import ResponseBad from "@/components/ResponseBad.vue";
+import Response from "@/components/Response.vue";
 
 const API = "https://dogz.studio/api/login";
 
 export default {
   name: "Home",
   components: {
-    ResponseGood,
-    ResponseBad,
+    Response,
   },
   data() {
     return {
       login: "",
-      send: "",
       pass: "",
+      send: "",
       results: [],
-      step: 0,
+      sendform: false,
+      showMsg: false,
+      error: false,
     };
   },
   methods: {
     sendData() {
-      console.log(this.login);
-      console.log(this.pass);
-      axios
-        .post(`${API}`, {
-          email: this.login,
-          password: this.pass,
-        })
-        .then((response) => {
-          console.log(response);
-          this.step = 1;
-        })
-        .catch((error) => {
-          console.log(error);
-          this.step = 2;
-        });
+      if (this.sendform !== true) {
+        //zablokowanie możliwości wielokrotnego zapytania serwera przed uzyskaniem odpowiedzi
+        this.sendform = true;
+        //zapytanie API
+        axios
+          .post(`${API}`, {
+            email: this.login,
+            password: this.pass,
+          })
+          // uzyskanie odpowiedzi - dane poprawne
+          .then((response) => {
+            this.sendform = false;
+            this.error = false;
+            this.showMsg = true;
+          })
+          // uzyskanie odpowiedzi - dane błędne
+          .catch((error) => {
+            this.sendform = false;
+            this.error = true;
+            this.showMsg = true;
+          });
+      }
     },
+    //czyszczenie danych
     clean() {
-      (this.$data.login = ""),
-      (this.$data.pass = ""),
-      (this.step = 0);
+      this.$data.login = "";
+      this.$data.pass = "";
+      this.showMsg = false;
     },
   },
 };
