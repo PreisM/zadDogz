@@ -1,16 +1,16 @@
 <template>
   <div class="formWrapper">
     <div class="log">
-      <k-input :label="'Login'" type="text" id="login" v-model.trim="login" />
+      <k-input :label="'Login'" type="text" v-model.trim="login" />
     </div>
     <div class="pass">
       <k-input :label="'Password'" type="password" v-model.trim="pass" />
     </div>
     <div class="buttons">
-      <k-button @click="sendData" :disabled="pass.length == ''|| login == ''">Submit</k-button>
-      <k-button @click="clean" icon="refresh" type="reset"></k-button>
+      <k-button @click="sendData" :disabled="pass == ''|| login == ''">Submit</k-button>
+      <k-button @click="clean" icon="refresh" type="reset" />
     </div>
-    <kendo-notification ref="popupNotification" append-to=".buttons"></kendo-notification>
+    <kendo-notification ref="popupNotification" append-to=".buttons" />
   </div>
 </template>
 
@@ -26,13 +26,12 @@ export default {
       login: "",
       pass: "",
       sendform: false,
-      error: false,
     };
   },
   methods: {
     sendData() {
       if (this.sendform !== true) {
-        //blocking the possibility of answering the server's query before the answer is received
+        //blocking multiple query
         this.sendform = true;
         //ask API
         axios
@@ -43,13 +42,11 @@ export default {
           // getting the answer - the data is correct
           .then((response) => {
             this.sendform = false;
-            this.error = false;
             this.popupNotificationWidget.show('Correct data. You are signed in.', 'succes')
           })
           // getting the answer - the data is incorrect
           .catch((error) => {
             this.sendform = false;
-            this.error = true;
             this.popupNotificationWidget.show('Login or password is incorrect', 'error');
           });
       }
@@ -69,5 +66,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>
