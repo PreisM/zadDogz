@@ -1,16 +1,16 @@
 <template>
-  <div class="formWrapper">
-    <div class="log">
+  <div>
+    <div>
       <k-input :label="'Login'" type="text" v-model.trim="login" />
     </div>
-    <div class="pass">
+    <div>
       <k-input :label="'Password'" type="password" v-model.trim="pass" />
     </div>
-    <div class="buttons">
+    <div>
       <k-button @click="sendData" :disabled="pass == ''|| login == ''">Submit</k-button>
       <k-button @click="clean" icon="refresh" type="reset" />
     </div>
-    <kendo-notification ref="popupNotification" append-to=".buttons" />
+    <kendo-notification ref="popupNotification" />
   </div>
 </template>
 
@@ -53,17 +53,20 @@ export default {
     },
     //data cleaning
     clean() {
-      this.$data.login = "";
-      this.$data.pass = "";
+      this.login = "";
+      this.pass = "";
       this.popupNotificationWidget.hide();
     }
   },
-  mounted: 
-    function () {
+  mounted() {
         this.popupNotificationWidget = this.$refs.popupNotification.kendoWidget();
     }, 
 };
 </script>
 
 <style scoped>
+.k-button {
+  text-transform: none;
+  margin: 1em 0.5em;
+}
 </style>
